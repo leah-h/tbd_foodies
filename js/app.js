@@ -1,5 +1,22 @@
 document.addEventListener("DOMContentLoaded", function () {
 
+    function renderRecipes(recipesArray) {
+        var recipeHTML = recipesArray.map(currentRecipe => {
+            return ` 
+                <div class="card recipe">
+                    <img class="card-img-top" src="${currentRecipe.image}" alt="movie poster">
+                    <div class="card-body">
+                        <h5 class="card-title">${currentRecipe.title}</h5>
+                        <p class="card-likes">Likes: ${currentRecipe.likes}</p>
+                    </div>
+                 </div>       
+                `
+
+        }).join("");
+
+        document.getElementsByClassName("results")[0].innerHTML = recipeHTML;
+    }
+
     document.getElementById("search-form").addEventListener("submit", function (e) {
         e.preventDefault();
 
@@ -20,7 +37,15 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         })
             .then((response)=>{
-                console.log(response);
+
+                recipeData = response.data;
+
+                var recipesContainer = document.getElementsByClassName("results")[0];
+
+                var recipeHTML = renderRecipes(recipeData);
+                recipesContainer.innerHTML = recipeHTML;
+
+                renderRecipes(recipeData);
 
             })
             .catch((error)=>{
@@ -30,6 +55,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 });
+
+
+
 
 
 
