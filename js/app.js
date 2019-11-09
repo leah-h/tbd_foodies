@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 "number":"5",
                 "ranking":"1",
                 "ignorePantry":"false",
-                "ingredients":`${ searchString }`
+                "ingredients":`${searchString}`
             }
         })
             .then((response)=>{
@@ -101,12 +101,13 @@ function getRecipe(id) {
             const recipeImage = document.getElementById('card-recipe-image');
             const recipeInstructions = document.getElementById('card-recipe-instructions');
             const recipeIngredients = document.getElementById('card-recipe-ingredients');
-
-
+            
+            let result = response.data.extendedIngredients.map(({ name }) => name);
+            
             recipeTitle.innerText = `${ response.data.title }`;
             recipeImage.innerHTML = `<img src="${response.data.image}" alt="recipe image">`;
-            recipeInstructions.innerText = `Instructions: ${ response.data.instructions}`;
-            recipeIngredients.innerHTML = `Ingredients: $ ${response.data.extendedIngredients}`;
+            recipeInstructions.innerText = `${ response.data.instructions}`;
+            recipeIngredients.innerHTML = `Ingredients: ${result}`;
 
         })
         .catch((error)=>{
