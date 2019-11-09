@@ -30,6 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
                       <div id="card-recipe-ingredients"></div>
                       </div>
                       <div class="modal-footer">
+                        </div>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                       </div>
                     </div>
