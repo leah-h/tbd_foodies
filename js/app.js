@@ -69,7 +69,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 recipeData = response.data;
 
                 const sortedRecipe = recipeData.sort(compareValues('likes', 'desc'));
-                console.log(sortedRecipe);
 
                 const recipesContainer = document.getElementsByClassName("results")[0];
 
@@ -103,11 +102,21 @@ function getRecipe(id) {
             const recipeIngredients = document.getElementById('card-recipe-ingredients');
             
             let result = response.data.extendedIngredients.map(({ originalString }) => originalString);
-            console.log(result);
+            let instructions = response.data.analyzedInstructions[0].steps;
 
             recipeTitle.innerText = `${ response.data.title }`;
             recipeImage.innerHTML = `<img src="${response.data.image}" alt="recipe image">`;
             recipeInstructions.innerText = `${ response.data.instructions}`;
+
+           let instructionsList = document.createElement('ul');
+           instructions.forEach(instruction => {
+               let li = document.createElement('li');
+                    instructionsList.appendChild(li);
+                    li.innerHTML += instruction.step;
+           });
+
+           recipeInstructions.innerText = 'Instructions: ';
+           recipeInstructions.appendChild(instructionsList);
 
             let recipeList = document.createElement('ul');
 
@@ -117,7 +126,6 @@ function getRecipe(id) {
                   li.innerHTML += ingredient;
             });
 
-            console.log(recipeList);
             recipeIngredients.innerText = 'Ingredients: ';
             recipeIngredients.appendChild(recipeList);
 
