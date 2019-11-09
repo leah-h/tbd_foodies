@@ -65,14 +65,14 @@ document.addEventListener("DOMContentLoaded", function () {
         })
             .then((response)=>{
 
-                console.log(response);
-
                 recipeData = response.data;
+
+                const sortedRecipe = recipeData.sort(compareValues('likes', 'desc'));
+                console.log(sortedRecipe);
 
                 const recipesContainer = document.getElementsByClassName("results")[0];
 
-                renderRecipes(recipeData);
-
+                renderRecipes(sortedRecipe);
 
             })
             .catch((error)=>{
@@ -112,6 +112,29 @@ function getRecipe(id) {
         .catch((error)=>{
             console.log(error)
         })
+}
+
+function compareValues(key, order='asc') {
+    return function(a, b) {
+        if(!a.hasOwnProperty(key) ||
+            !b.hasOwnProperty(key)) {
+            return 0;
+        }
+
+        const varA = a[key];
+        const varB = b[key];
+
+        let comparison = 0;
+        if (varA > varB) {
+            comparison = 1;
+        } else if (varA < varB) {
+            comparison = -1;
+        }
+        return (
+            (order == 'desc') ?
+                (comparison * -1) : comparison
+        );
+    };
 }
 
 
