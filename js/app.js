@@ -102,12 +102,24 @@ function getRecipe(id) {
             const recipeInstructions = document.getElementById('card-recipe-instructions');
             const recipeIngredients = document.getElementById('card-recipe-ingredients');
             
-            let result = response.data.extendedIngredients.map(({ name }) => name);
-            
+            let result = response.data.extendedIngredients.map(({ originalString }) => originalString);
+            console.log(result);
+
             recipeTitle.innerText = `${ response.data.title }`;
             recipeImage.innerHTML = `<img src="${response.data.image}" alt="recipe image">`;
             recipeInstructions.innerText = `${ response.data.instructions}`;
-            recipeIngredients.innerHTML = `Ingredients: ${result}`;
+
+            let recipeList = document.createElement('ul');
+
+            result.forEach(ingredient => {
+               let li = document.createElement('li');
+                  recipeList.appendChild(li);
+                  li.innerHTML += ingredient;
+            });
+
+            console.log(recipeList);
+            recipeIngredients.innerText = 'Ingredients: ';
+            recipeIngredients.appendChild(recipeList);
 
         })
         .catch((error)=>{
