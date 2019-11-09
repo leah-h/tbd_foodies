@@ -26,7 +26,9 @@ document.addEventListener("DOMContentLoaded", function () {
                       
                       <div class="modal-body"> 
                           <div id="card-recipe-image"></div>
-                          <div id="card-recipe-add-info"></div>               
+                          <div id="card-recipe-add-info">
+                     
+</div>               
                           <p id="card-recipe-instructions"></p>
                           <div id="card-recipe-ingredients"></div>
                       </div>
@@ -105,13 +107,13 @@ function getRecipe(id) {
 
             let recipeLikesCount = response.data.aggregateLikes;
             let recipeLikes = document.createElement('p');
-            recipeLikes.innerText = `Likes: ${ recipeLikesCount }`;
-            recipeAddInfo.appendChild(recipeLikes);
+            recipeLikes.innerHTML = `Likes: ${ recipeLikesCount }`;
 
             let recipeServingsCount = response.data.servings;
             let recipeServings = document.createElement('p');
-            recipeServings.innerText = `Yield: ${ recipeServingsCount } servings`;
-            recipeAddInfo.appendChild(recipeServings);
+            // recipeServings.innerHTML = `Yield: ${ recipeServingsCount } servings`;
+
+            recipeAddInfo.innerHTML = `Yield: ${recipeServingsCount} servings <br> Likes: ${ recipeLikesCount }`;
             
             let result = response.data.extendedIngredients.map(({ originalString }) => originalString);
             let instructions = response.data.analyzedInstructions[0].steps;
