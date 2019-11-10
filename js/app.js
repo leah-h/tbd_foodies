@@ -25,11 +25,15 @@ document.addEventListener("DOMContentLoaded", function () {
                       </div>
                       
                       <div class="modal-body"> 
-                      <div id="card-recipe-image"></div>
-                      <p id="card-recipe-instructions"></p>
-                      <div id="card-recipe-ingredients"></div>
+                          <div id="card-recipe-image"></div>
+                          <div id="card-recipe-add-info">
+                     
+</div>               
+                          <p id="card-recipe-instructions"></p>
+                          <div id="card-recipe-ingredients"></div>
                       </div>
                       <div class="modal-footer">
+                        </div>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                       </div>
                     </div>
@@ -68,7 +72,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 recipeData = response.data;
 
                 const sortedRecipe = recipeData.sort(compareValues('likes', 'desc'));
-                console.log(sortedRecipe);
 
                 const recipesContainer = document.getElementsByClassName("results")[0];
 
@@ -98,15 +101,47 @@ function getRecipe(id) {
 
             const recipeTitle = document.getElementById('exampleModalLongTitle');
             const recipeImage = document.getElementById('card-recipe-image');
+            const recipeAddInfo = document.getElementById('card-recipe-add-info');
             const recipeInstructions = document.getElementById('card-recipe-instructions');
             const recipeIngredients = document.getElementById('card-recipe-ingredients');
+
+            let recipeLikesCount = response.data.aggregateLikes;
+            let recipeLikes = document.createElement('p');
+            recipeLikes.innerHTML = `Likes: ${ recipeLikesCount }`;
+
+            let recipeServingsCount = response.data.servings;
+            let recipeServings = document.createElement('p');
+            // recipeServings.innerHTML = `Yield: ${ recipeServingsCount } servings`;
+
+            recipeAddInfo.innerHTML = `Yield: ${recipeServingsCount} servings <br> Likes: ${ recipeLikesCount }`;
             
-            let result = response.data.extendedIngredients.map(({ name }) => name);
-            
+            let result = response.data.extendedIngredients.map(({ originalString }) => originalString);
+            let instructions = response.data.analyzedInstructions[0].steps;
+
             recipeTitle.innerText = `${ response.data.title }`;
             recipeImage.innerHTML = `<img src="${response.data.image}" alt="recipe image">`;
             recipeInstructions.innerText = `${ response.data.instructions}`;
-            recipeIngredients.innerHTML = `Ingredients: ${result}`;
+
+           let instructionsList = document.createElement('ol');
+           instructions.forEach(instruction => {
+               let li = document.createElement('li');
+                    instructionsList.appendChild(li);
+                    li.innerHTML += instruction.step;
+           });
+
+           recipeInstructions.innerText = 'Preparation: ';
+           recipeInstructions.appendChild(instructionsList);
+
+            let recipeList = document.createElement('ul');
+
+            result.forEach(ingredient => {
+               let li = document.createElement('li');
+                  recipeList.appendChild(li);
+                  li.innerHTML += ingredient;
+            });
+
+            recipeIngredients.innerText = 'Ingredients: ';
+            recipeIngredients.appendChild(recipeList);
 
         })
         .catch((error)=>{
