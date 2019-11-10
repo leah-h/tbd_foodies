@@ -10,33 +10,35 @@ document.addEventListener("DOMContentLoaded", function () {
                         <p class="card-likes">Likes: ${currentRecipe.likes}</p>
                                 <!-- Button trigger modal -->
                 <button class="butn" data-toggle="modal" data-target="#exampleModalLong" id="recipe-info" onclick="getRecipe(${currentRecipe.id})">
-                  See recipe
+                See recipe
                 </button>
                 
                 <!-- Modal -->
                 <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-                  <div class="modal-dialog" role="document">
+                <div class="modal-dialog" role="document">
                     <div class="modal-content">
-                      <div class="modal-header">
+                    <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLongTitle"></h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
+                        <span aria-hidden="true">&times;</span>
                         </button>
-                      </div>
-                      
-                      <div class="modal-body"> 
-                      <div id="card-recipe-image"></div>
-                      <p id="card-recipe-instructions"></p>
-                      <div id="card-recipe-ingredients"></div>
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                      </div>
                     </div>
-                  </div>
+                    
+                    <div class="modal-body"> 
+                    <div id="card-recipe-image"></div>
+                    <p id="card-recipe-instructions"></p>
+                    <div id="card-recipe-ingredients"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" onclick="saveRecipe(${currentRecipe.id})" id="saveButton_${currentRecipe.id}" >Save Recipe</button>
+
+                    </div>
+                    </div>
+                </div>
                 </div>
                     </div>
-                 </div>       
+                </div>       
                 `
 
         }).join("");
@@ -101,7 +103,7 @@ function getRecipe(id) {
             const recipeInstructions = document.getElementById('card-recipe-instructions');
             const recipeIngredients = document.getElementById('card-recipe-ingredients');
             
-            let result = response.data.extendedIngredients.map(({ name }) => name);
+            let result = response.data.extendedIngredients.map(({ originalString }) => originalString);
             
             recipeTitle.innerText = `${ response.data.title }`;
             recipeImage.innerHTML = `<img src="${response.data.image}" alt="recipe image">`;
@@ -113,6 +115,34 @@ function getRecipe(id) {
             console.log(error)
         })
 }
+
+function saveRecipe(id) {
+    let recipe = recipeData.find(function(currentRecipe) {
+        return currentRecipe.id == id;      
+    });
+        console.log(recipe, id);
+            
+
+    let recipeListJSON = localStorage.getItem('recipeList');
+    let recipeList = JSON.parse(recipeListJSON);
+        if (recipeList == null) {
+            recipeList= [];
+        } 
+    recipeList.push(recipe); 
+
+
+    let recipeButton = document.getElementById(`saveButton_${id}`);
+    recipeButton.innerHTML = "Saved!";
+    recipeButton.className = ("disabled");
+
+
+    recipeListJSON = JSON.stringify(recipeList);
+    localStorage.setItem('recipeList', recipeListJSON);
+
+
+}
+
+
 
 function compareValues(key, order='asc') {
     return function(a, b) {
@@ -136,9 +166,6 @@ function compareValues(key, order='asc') {
         );
     };
 }
-
-
-
 
 
 
