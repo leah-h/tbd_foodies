@@ -27,13 +27,13 @@ document.addEventListener("DOMContentLoaded", function () {
                       <div class="modal-body"> 
                           <div id="card-recipe-image"></div>
                           <div id="card-recipe-add-info">
-                     
-</div>               
+                      </div>               
                           <p id="card-recipe-instructions"></p>
                           <div id="card-recipe-ingredients"></div>
                       </div>
                       <div class="modal-footer">
                         </div>
+                        <button type="button" class="btn btn-secondary" id="save-to-faves">Save to Favorites</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                       </div>
                     </div>
@@ -97,7 +97,7 @@ function getRecipe(id) {
         }
     })
         .then((response)=>{
-            console.log(response);
+            console.log(response.data);
 
             const recipeTitle = document.getElementById('exampleModalLongTitle');
             const recipeImage = document.getElementById('card-recipe-image');
@@ -116,7 +116,9 @@ function getRecipe(id) {
             recipeAddInfo.innerHTML = `Yield: ${recipeServingsCount} servings <br> Likes: ${ recipeLikesCount }`;
             
             let result = response.data.extendedIngredients.map(({ originalString }) => originalString);
+            console.log(result);
             let instructions = response.data.analyzedInstructions[0].steps;
+            console.log(instructions);
 
             recipeTitle.innerText = `${ response.data.title }`;
             recipeImage.innerHTML = `<img src="${response.data.image}" alt="recipe image">`;
@@ -143,10 +145,21 @@ function getRecipe(id) {
             recipeIngredients.innerText = 'Ingredients: ';
             recipeIngredients.appendChild(recipeList);
 
+            var saveToFaves_Btn = document.getElementById('save-to-faves');
+            saveToFaves_Btn.addEventListener('click', function(e){
+                e.preventDefault();
+
+                var firebaseRef = firebase.database().ref();
+                data = response.data;
+
+                firebaseRef.child('recipes').set(data);
+            });
+
         })
         .catch((error)=>{
             console.log(error)
         })
+
 }
 
 function compareValues(key, order='asc') {
@@ -170,7 +183,11 @@ function compareValues(key, order='asc') {
                 (comparison * -1) : comparison
         );
     };
+
 }
+
+
+
 
 
 
