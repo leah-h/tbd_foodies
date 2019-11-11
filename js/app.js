@@ -30,8 +30,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     <div id="card-recipe-ingredients"></div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" onclick="saveRecipe(${currentRecipe.id})" id="saveButton_${currentRecipe.id}" >Save Recipe</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button id="saveButton"></button>  
 
                     </div>
                     </div>
@@ -105,6 +105,10 @@ function getRecipe(id) {
             
             let result = response.data.extendedIngredients.map(({ originalString }) => originalString);
             
+            const recipeButton = document.getElementById(`saveButton`);
+            recipeButton.innerHTML = `<button type="button" class="btn btn-primary" onclick="saveRecipe(${id})" id="saveButton_${id}" >Save Recipe</button>`;
+    
+            
             recipeTitle.innerText = `${ response.data.title }`;
             recipeImage.innerHTML = `<img src="${response.data.image}" alt="recipe image">`;
             recipeInstructions.innerText = `${ response.data.instructions}`;
@@ -116,12 +120,12 @@ function getRecipe(id) {
         })
 }
 
-function saveRecipe(id) {
-    let recipe = recipeData.find(function(currentRecipe) {
-        return currentRecipe.id == id;      
+function saveRecipe(id, recipeButton) {
+    let recipe = recipeData.find(function(recipeButton) {
+        return recipeButton.id = id;      
     });
-        console.log(recipe, id);
-            
+    // // let recipe = [];
+    console.log(id, "id");
 
     let recipeListJSON = localStorage.getItem('recipeList');
     let recipeList = JSON.parse(recipeListJSON);
@@ -129,17 +133,12 @@ function saveRecipe(id) {
             recipeList= [];
         } 
     recipeList.push(recipe); 
-
-
-    let recipeButton = document.getElementById(`saveButton_${id}`);
+    recipeButton = document.getElementById('saveButton');
     recipeButton.innerHTML = "Saved!";
     recipeButton.className = ("disabled");
 
-
     recipeListJSON = JSON.stringify(recipeList);
     localStorage.setItem('recipeList', recipeListJSON);
-
-
 }
 
 
