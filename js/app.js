@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
                       </div>
                       <div class="modal-footer">
                         </div>
-                        <button type="button" class="btn btn-secondary" id="save-to-faves">Save to Favorites</button>
+                        <button type="button" class="btn btn-secondary" id="save-to-faves" onclick="saveRecipeToFavorites(e)">Save to Favorites</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                       </div>
                     </div>
@@ -145,17 +145,23 @@ function getRecipe(id) {
             recipeIngredients.innerText = 'Ingredients: ';
             recipeIngredients.appendChild(recipeList);
 
-            var saveToFaves_Btn = document.getElementById('save-to-faves');
-            saveToFaves_Btn.addEventListener('click', function(e){
+            function saveRecipeToFavorites(e) {
                 e.preventDefault();
 
                 var firebaseRef = firebase.database().ref();
-                data = response.data;
+                data = {
+                    title: `${ response.data.title }`,
+                    image: `<img src="${response.data.image}" alt="recipe image">`,
+                    likes: recipeLikesCount,
+                    yield: recipeServingsCount,
+                    instructions: instructions,
+                    ingredients: result
+                };
 
-                firebaseRef.child('recipes').set(data);
-            });
-
+                firebaseRef.push().set(data);
+            }
         })
+
         .catch((error)=>{
             console.log(error)
         })
