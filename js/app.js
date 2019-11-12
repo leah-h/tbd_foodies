@@ -97,6 +97,7 @@ function getRecipe(id) {
     })
         .then((response)=>{
             console.log(response);
+            recipe = response.data;
 
             const recipeTitle = document.getElementById('exampleModalLongTitle');
             const recipeImage = document.getElementById('card-recipe-image');
@@ -107,7 +108,8 @@ function getRecipe(id) {
             
             const recipeButton = document.getElementById(`saveButton`);
             recipeButton.innerHTML = `<button type="button" class="btn btn-primary" onclick="saveRecipe(${id})" id="saveButton_${id}" >Save Recipe</button>`;
-    
+            
+            console.log('responseid', recipe, recipeTitle )
             
             recipeTitle.innerText = `${ response.data.title }`;
             recipeImage.innerHTML = `<img src="${response.data.image}" alt="recipe image">`;
@@ -120,12 +122,9 @@ function getRecipe(id) {
         })
 }
 
-function saveRecipe(id, recipeButton) {
-    let recipe = recipeData.find(function(recipeButton) {
-        return recipeButton.id = id;      
-    });
-    // // let recipe = [];
-    console.log(id, "id");
+
+function saveRecipe(id) {
+    console.log(recipe, id, "id");
 
     let recipeListJSON = localStorage.getItem('recipeList');
     let recipeList = JSON.parse(recipeListJSON);
