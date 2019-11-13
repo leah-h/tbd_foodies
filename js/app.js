@@ -10,39 +10,39 @@ document.addEventListener("DOMContentLoaded", function () {
                         <h5 class="card-title">${currentRecipe.title}</h5>
                         <p class="card-likes">Likes: ${currentRecipe.likes}</p>
                                 <!-- Button trigger modal -->
-                <button class="butn" data-toggle="modal" data-target="#exampleModalLong" id="recipe-info" onclick="getRecipe(${currentRecipe.id})">
-                  See recipe
-                </button>
-                
-                <!-- Modal -->
-                <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-                  <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle"></h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
+                        <button class="butn" data-toggle="modal" data-target="#exampleModalLong" id="recipe-info" onclick="getRecipe(${currentRecipe.id})">
+                        See recipe
                         </button>
-                      </div>
-                      
-                      <div class="modal-body"> 
-                          <div id="card-recipe-image"></div>
-                          <div id="card-recipe-add-info">
-                     
-</div>               
-                          <p id="card-recipe-instructions"></p>
-                          <div id="card-recipe-ingredients"></div>
-                      </div>
-                      <div class="modal-footer">
+                
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLongTitle"></h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+
+                                    <div class="modal-body"> 
+                                        <div id="card-recipe-image"></div>
+                                        <div id="card-recipe-add-info"></div>               
+                                        <p id="card-recipe-instructions"></p>
+                                        <div id="card-recipe-ingredients"></div>
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" id="save-to-faves">Save to Favorites</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <!-- end modal -->    
                         </div>
-                        <button type="button" class="btn btn-secondary" id="save-to-faves">Save to Favorites</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                      </div>
                     </div>
-                  </div>
-                </div>
-                    </div>
-                 </div>       
+                </div>    
                 `
 
         }).join("");
@@ -100,6 +100,7 @@ function getRecipe(id) {
     })
         .then((response)=>{
             console.log(response);
+            recipe = response.data;
 
             const recipeTitle = document.getElementById('exampleModalLongTitle');
             const recipeImage = document.getElementById('card-recipe-image');
@@ -168,6 +169,26 @@ function getRecipe(id) {
         })
 }
 
+
+function saveRecipe(id) {
+    console.log(recipe, id, "id");
+
+    let recipeListJSON = localStorage.getItem('recipeList');
+    let recipeList = JSON.parse(recipeListJSON);
+        if (recipeList == null) {
+            recipeList= [];
+        } 
+    recipeList.push(recipe); 
+    recipeButton = document.getElementById('saveButton');
+    recipeButton.innerHTML = "Saved!";
+    recipeButton.className = ("disabled");
+
+    recipeListJSON = JSON.stringify(recipeList);
+    localStorage.setItem('recipeList', recipeListJSON);
+}
+
+
+
 function compareValues(key, order='asc') {
     return function(a, b) {
         if(!a.hasOwnProperty(key) ||
@@ -206,9 +227,6 @@ getRecipeFaves_Btn.addEventListener('click', function (e) {
 
 
 });
-
-
-
 
 
 
