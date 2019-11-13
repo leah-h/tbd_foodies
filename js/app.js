@@ -5,38 +5,41 @@ document.addEventListener("DOMContentLoaded", function () {
             return ` 
                 <div class="card recipe">
                     <img class="card-img-top" src="${currentRecipe.image}" alt="recipe image">
-                    <div class="card-body">
-                        <h5 class="card-title">${currentRecipe.title}</h5>
-                        <p class="card-likes">Likes: ${currentRecipe.likes}</p>
+                        <div class="card-body">
+                            <h5 class="card-title">${currentRecipe.title}</h5>
+                            <p class="card-likes">Likes: ${currentRecipe.likes}</p>
                                 <!-- Button trigger modal -->
-                <button class="butn" data-toggle="modal" data-target="#exampleModalLong" id="recipe-info" onclick="getRecipe(${currentRecipe.id})">
-                  See recipe
-                </button>
+                            <button class="butn btn-outline-dark" data-toggle="modal" data-target="#exampleModalLong" id="recipe-info" onclick="getRecipe(${currentRecipe.id})">
+                            See recipe
+                            </button>
                 
                 <!-- Modal -->
-                <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-                  <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle"></h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                      </div>
-                      
-                      <div class="modal-body"> 
-                      <div id="card-recipe-image"></div>
-                      <p id="card-recipe-instructions"></p>
-                      <div id="card-recipe-ingredients"></div>
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                      </div>
+                        <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle"></h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+
+                        <div class="modal-body"> 
+                            <div id="card-recipe-image"></div>
+                            <p id="card-recipe-instructions"></p>
+                            <div id="card-recipe-ingredients"></div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-success" data-dismiss="modal">Share</button>
+                            <button type="button" class="btn btn-warning" data-dismiss="modal">Save</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                            
+                        </div>
+                            </div>
+                            </div>
+                        </div>
                     </div>
-                  </div>
-                </div>
-                    </div>
-                 </div>       
+                </div>       
                 `
 
         }).join("");
@@ -57,7 +60,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 "x-rapidapi-host":"spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
                 "x-rapidapi-key":"d64ead36d4msh2d7c35ad33b43ddp1579e9jsnec14e0565611"
             },"params":{
-                "number":"5",
+                "number":"12",
                 "ranking":"1",
                 "ignorePantry":"false",
                 "ingredients":`${ searchString }`

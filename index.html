@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>TBD Foodies</title>
+    <title>Match Cooking</title>
     <link href="https://fonts.googleapis.com/css?family=Rubik&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/a8791e5d25.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -12,20 +12,30 @@
 </head>
 <body>
 
-<h1>TBD Foodies</h1>
 
-<div class="col-12 search">
 
-    <form id="search-form">
-        <div class="input-group input-group-lg">
-            <input class="form-control search-bar" placeholder="What's in your fridge?" type="text" id="search-bar">
-            <button class="butn" type="submit" id="search-button"><i class="fas fa-search fa-2x"></i></button>
-        </div>
-    </form>
 
+
+<div class="search main-container">
+    <header class="main-header">
+            <div class="header">
+                    <h1>Matchmaker Cooking</h1>
+                    <p><i>Let's see what <b>you</b> can make!</i></p>
+                </div>
+
+        <form id="search-form" >
+            <div class="input-group input-group-lg">
+                    <input class="form-control search-bar" placeholder="What's in your fridge?" type="text" id="search-bar">
+                    <button class="butn" type="submit" id="search-button"><i class="fas fa-search fa-2x"></i></button>
+                
+            </div>
+        </form>
+
+    </header>
+
+
+    <div class="results main-content"></div>
 </div>
-
-<div class="results"></div>
 
 
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
