@@ -1,3 +1,4 @@
+
 document.addEventListener("DOMContentLoaded", function () {
 
     function renderRecipes(recipesArray) {
@@ -34,6 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
                       </div>
                       <div class="modal-footer">
                         </div>
+                        <button type="button" class="btn btn-secondary" id="save-to-faves">Save to Favorites</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                       </div>
                     </div>
@@ -114,7 +116,7 @@ function getRecipe(id) {
             // recipeServings.innerHTML = `Yield: ${ recipeServingsCount } servings`;
 
             recipeAddInfo.innerHTML = `Yield: ${recipeServingsCount} servings <br> Likes: ${ recipeLikesCount }`;
-            
+
             let result = response.data.extendedIngredients.map(({ originalString }) => originalString);
             let instructions = response.data.analyzedInstructions[0].steps;
 
@@ -122,26 +124,43 @@ function getRecipe(id) {
             recipeImage.innerHTML = `<img src="${response.data.image}" alt="recipe image">`;
             recipeInstructions.innerText = `${ response.data.instructions}`;
 
-           let instructionsList = document.createElement('ol');
-           instructions.forEach(instruction => {
-               let li = document.createElement('li');
-                    instructionsList.appendChild(li);
-                    li.innerHTML += instruction.step;
-           });
+            let instructionsList = document.createElement('ol');
+            instructions.forEach(instruction => {
+                let li = document.createElement('li');
+                instructionsList.appendChild(li);
+                li.innerHTML += instruction.step;
+            });
 
-           recipeInstructions.innerText = 'Preparation: ';
-           recipeInstructions.appendChild(instructionsList);
+            recipeInstructions.innerText = 'Preparation: ';
+            recipeInstructions.appendChild(instructionsList);
 
             let recipeList = document.createElement('ul');
 
             result.forEach(ingredient => {
-               let li = document.createElement('li');
-                  recipeList.appendChild(li);
-                  li.innerHTML += ingredient;
+                let li = document.createElement('li');
+                recipeList.appendChild(li);
+                li.innerHTML += ingredient;
             });
 
             recipeIngredients.innerText = 'Ingredients: ';
             recipeIngredients.appendChild(recipeList);
+
+            saveToFaves_Btn = document.getElementById('save-to-faves');
+            saveToFaves_Btn.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                var firebaseRef = firebase.database().ref('recipes');
+                data = {
+                    title: `${response.data.title}`,
+                    image: `<img src="${response.data.image}" alt="recipe image">`,
+                    likes: recipeLikesCount,
+                    yield: recipeServingsCount,
+                    instructions: instructions,
+                    ingredients: result
+                };
+
+                firebaseRef.push().set(data);
+            });
 
         })
         .catch((error)=>{
@@ -171,6 +190,31 @@ function compareValues(key, order='asc') {
         );
     };
 }
+
+getRecipeFaves_Btn = document.getElementById('get-recipe-faves-list');
+getRecipeFaves_Btn.addEventListener('click', function (e) {
+    window.alert('You clicked me!');
+    e.preventDefault();
+
+    var rootRef = firebase.database().ref().child('recipes');
+    rootRef.on('child_added', snapshot => {
+            snapshot.forEach(function (childSnapshot) {
+                console.log(childSnapshot);
+                // renderRecipes(childSnapshot);
+            })
+        });
+
+
+});
+
+
+
+
+
+
+
+
+
 
 
 

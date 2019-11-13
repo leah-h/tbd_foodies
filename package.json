@@ -1,0 +1,24 @@
+{
+  "name": "tbd_foodies",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leah-h/tbd_foodies.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/leah-h/tbd_foodies/issues"
+  },
+  "homepage": "https://github.com/leah-h/tbd_foodies#readme",
+  "dependencies": {
+    "firebase": "^7.3.0",
+    "require": "^2.4.20",
+    "requirejs": "^2.3.6"
+  }
+}
