@@ -1,3 +1,4 @@
+
 document.addEventListener("DOMContentLoaded", function () {
 
     function renderRecipes(recipesArray) {
@@ -25,11 +26,16 @@ document.addEventListener("DOMContentLoaded", function () {
                       </div>
                       
                       <div class="modal-body"> 
-                      <div id="card-recipe-image"></div>
-                      <p id="card-recipe-instructions"></p>
-                      <div id="card-recipe-ingredients"></div>
+                          <div id="card-recipe-image"></div>
+                          <div id="card-recipe-add-info">
+                     
+</div>               
+                          <p id="card-recipe-instructions"></p>
+                          <div id="card-recipe-ingredients"></div>
                       </div>
                       <div class="modal-footer">
+                        </div>
+                        <button type="button" class="btn btn-secondary" id="save-to-faves">Save to Favorites</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                       </div>
                     </div>
@@ -60,19 +66,18 @@ document.addEventListener("DOMContentLoaded", function () {
                 "number":"5",
                 "ranking":"1",
                 "ignorePantry":"false",
-                "ingredients":`${ searchString }`
+                "ingredients":`${searchString}`
             }
         })
             .then((response)=>{
 
-                console.log(response);
-
                 recipeData = response.data;
+
+                const sortedRecipe = recipeData.sort(compareValues('likes', 'desc'));
 
                 const recipesContainer = document.getElementsByClassName("results")[0];
 
-                renderRecipes(recipeData);
-
+                renderRecipes(sortedRecipe);
 
             })
             .catch((error)=>{
@@ -98,20 +103,118 @@ function getRecipe(id) {
 
             const recipeTitle = document.getElementById('exampleModalLongTitle');
             const recipeImage = document.getElementById('card-recipe-image');
+            const recipeAddInfo = document.getElementById('card-recipe-add-info');
             const recipeInstructions = document.getElementById('card-recipe-instructions');
             const recipeIngredients = document.getElementById('card-recipe-ingredients');
 
+            let recipeLikesCount = response.data.aggregateLikes;
+            let recipeLikes = document.createElement('p');
+            recipeLikes.innerHTML = `Likes: ${ recipeLikesCount }`;
+
+            let recipeServingsCount = response.data.servings;
+            let recipeServings = document.createElement('p');
+            // recipeServings.innerHTML = `Yield: ${ recipeServingsCount } servings`;
+
+            recipeAddInfo.innerHTML = `Yield: ${recipeServingsCount} servings <br> Likes: ${ recipeLikesCount }`;
+
+            let result = response.data.extendedIngredients.map(({ originalString }) => originalString);
+            let instructions = response.data.analyzedInstructions[0].steps;
 
             recipeTitle.innerText = `${ response.data.title }`;
             recipeImage.innerHTML = `<img src="${response.data.image}" alt="recipe image">`;
-            recipeInstructions.innerText = `Instructions: ${ response.data.instructions}`;
-            recipeIngredients.innerHTML = `Ingredients: $ ${response.data.extendedIngredients}`;
+            recipeInstructions.innerText = `${ response.data.instructions}`;
+
+            let instructionsList = document.createElement('ol');
+            instructions.forEach(instruction => {
+                let li = document.createElement('li');
+                instructionsList.appendChild(li);
+                li.innerHTML += instruction.step;
+            });
+
+            recipeInstructions.innerText = 'Preparation: ';
+            recipeInstructions.appendChild(instructionsList);
+
+            let recipeList = document.createElement('ul');
+
+            result.forEach(ingredient => {
+                let li = document.createElement('li');
+                recipeList.appendChild(li);
+                li.innerHTML += ingredient;
+            });
+
+            recipeIngredients.innerText = 'Ingredients: ';
+            recipeIngredients.appendChild(recipeList);
+
+            saveToFaves_Btn = document.getElementById('save-to-faves');
+            saveToFaves_Btn.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                var firebaseRef = firebase.database().ref('recipes');
+                data = {
+                    title: `${response.data.title}`,
+                    image: `<img src="${response.data.image}" alt="recipe image">`,
+                    likes: recipeLikesCount,
+                    yield: recipeServingsCount,
+                    instructions: instructions,
+                    ingredients: result
+                };
+
+                firebaseRef.push().set(data);
+            });
 
         })
         .catch((error)=>{
             console.log(error)
         })
 }
+
+function compareValues(key, order='asc') {
+    return function(a, b) {
+        if(!a.hasOwnProperty(key) ||
+            !b.hasOwnProperty(key)) {
+            return 0;
+        }
+
+        const varA = a[key];
+        const varB = b[key];
+
+        let comparison = 0;
+        if (varA > varB) {
+            comparison = 1;
+        } else if (varA < varB) {
+            comparison = -1;
+        }
+        return (
+            (order == 'desc') ?
+                (comparison * -1) : comparison
+        );
+    };
+}
+
+getRecipeFaves_Btn = document.getElementById('get-recipe-faves-list');
+getRecipeFaves_Btn.addEventListener('click', function (e) {
+    window.alert('You clicked me!');
+    e.preventDefault();
+
+    var rootRef = firebase.database().ref().child('recipes');
+    rootRef.on('child_added', snapshot => {
+            snapshot.forEach(function (childSnapshot) {
+                console.log(childSnapshot);
+                // renderRecipes(childSnapshot);
+            })
+        });
+
+
+});
+
+
+
+
+
+
+
+
+
 
 
 
