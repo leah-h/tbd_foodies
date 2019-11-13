@@ -6,9 +6,9 @@ document.addEventListener("DOMContentLoaded", function () {
             return ` 
                 <div class="card recipe">
                     <img class="card-img-top" src="${currentRecipe.image}" alt="recipe image">
-                    <div class="card-body">
-                        <h5 class="card-title">${currentRecipe.title}</h5>
-                        <p class="card-likes">Likes: ${currentRecipe.likes}</p>
+                        <div class="card-body">
+                            <h5 class="card-title">${currentRecipe.title}</h5>
+                            <p class="card-likes">Likes: ${currentRecipe.likes}</p>
                                 <!-- Button trigger modal -->
                         <button class="butn" data-toggle="modal" data-target="#exampleModalLong" id="recipe-info" onclick="getRecipe(${currentRecipe.id})">
                         See recipe
@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 "x-rapidapi-host":"spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
                 "x-rapidapi-key":"d64ead36d4msh2d7c35ad33b43ddp1579e9jsnec14e0565611"
             },"params":{
-                "number":"5",
+                "number":"12",
                 "ranking":"1",
                 "ignorePantry":"false",
                 "ingredients":`${searchString}`
