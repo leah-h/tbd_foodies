@@ -196,14 +196,15 @@ getRecipeFaves_Btn.addEventListener('click', function (e) {
     window.alert('You clicked me!');
     e.preventDefault();
 
-    firebaseRef = firebase.database().ref('recipes');
-    firebaseRef.once('value')
-        .then(function (snapshot) {
+    var rootRef = firebase.database().ref().child('recipes');
+    rootRef.on('child_added', snapshot => {
             snapshot.forEach(function (childSnapshot) {
                 console.log(childSnapshot);
                 // renderRecipes(childSnapshot);
-            });
+            })
         });
+
+
 });
 
 
