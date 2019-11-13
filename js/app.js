@@ -187,8 +187,6 @@ function saveRecipe(id) {
     localStorage.setItem('recipeList', recipeListJSON);
 }
 
-
-
 function compareValues(key, order='asc') {
     return function(a, b) {
         if(!a.hasOwnProperty(key) ||
@@ -219,13 +217,11 @@ getRecipeFaves_Btn.addEventListener('click', function (e) {
 
     var rootRef = firebase.database().ref().child('recipes');
     rootRef.on('child_added', snapshot => {
-            snapshot.forEach(function (childSnapshot) {
-                console.log(childSnapshot);
+            // snapshot.forEach(function (childSnapshot) {
+                console.log(snapshot);
                 // renderRecipes(childSnapshot);
-            })
+            // })
         });
-
-
 });
 
 
