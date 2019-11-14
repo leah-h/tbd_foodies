@@ -1,18 +1,26 @@
-document.addEventListener("DOMContentLoaded", function () {
-
-
 let emailString = document.getElementById("email-address");
 
 document.getElementById("subscribe-form").addEventListener('submit', function (e) {
 
     e.preventDefault();
 
-    var firebaseRef = firebase.database().ref('email');
-
+    let firebaseRef = firebase.database().ref('emails');
     let emailAddress = emailString.value;
+    let data = {
+        email: emailAddress
+    };
 
-    firebaseRef.push().set(emailAddress);
+    const promise = firebaseRef.push().set(data);
 
-});
+    promise.then(() => {
+        window.location.href = "success.html";
+    });
+})
+    .catch((error) => {
+        console.log(error)
+    });
 
-});
+
+
+
+

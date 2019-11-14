@@ -1,8 +1,9 @@
 body {
   background-color: #f8bb02;
+  font-family: 'Montserrat', sans-serif;
   margin: 0 auto;
-  text-align: end;
   padding: 50px;
+  text-align: end;
 }
 
 .newsletter-signup {
