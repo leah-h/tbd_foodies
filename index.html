@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Match Cooking</title>
+    <title>Matchmaker Cooking</title>
     <link href="https://fonts.googleapis.com/css?family=Rubik&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/a8791e5d25.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -13,65 +13,60 @@
 </head>
 <body>
 
+    <!-- <div class="col-12 nav nav-pills justify-content-end">
+        <button class="butn nav-item" id="get-recipe-faves-list">My Recipe List</button>
+    </div> -->
 
-<div class="col-12 nav nav-pills justify-content-end">
-    <button class="butn nav-item" id="get-recipe-faves-list">My Recipe List</button>
-</div>
+    <div class="search main-container col-12">
+        <header class="main-header">
 
-<div class="col-12 search">
-
-
-
-<div class="search main-container">
-    <header class="main-header">
             <div class="header">
-                    <h1>Matchmaker Cooking</h1>
-                    <p><i>Let's see what <b>you</b> can make!</i></p>
-                </div>
-
-        <form id="search-form" >
-            <div class="input-group input-group-lg">
-                    <input class="form-control search-bar" placeholder="What's in your fridge?" type="text" id="search-bar">
-                    <button class="butn" type="submit" id="search-button"><i class="fas fa-search fa-2x"></i></button>
-                
+                <h1>Matchmaker Cooking</h1>
+                <p><i>Let's see what <b>you</b> can make!</i></p>
             </div>
-        </form>
 
-    </header>
+            <form id="search-form" >
+                <div class="input-group input-group-lg">
+                        <input class="form-control search-bar" placeholder="What's in your fridge?" type="text" id="search-bar">
+                        <button class="butn" type="submit" id="search-button"><i class="fas fa-search fa-2x"></i></button>
+                </div>
+            </form>
 
-
-    <div class="results main-content"></div>
-</div>
-
-
-
-
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-
-<script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-database.js"></script>
+        </header>
 
 
-<script>
-    var firebaseConfig = {
-        apiKey: "AIzaSyDMAzN8O7N_3DJUTBZ3luqk6O8fwgXbzqQ",
-        authDomain: "matchmaker-foodies.firebaseapp.com",
-        databaseURL: "https://matchmaker-foodies.firebaseio.com",
-        projectId: "matchmaker-foodies",
-        storageBucket: "matchmaker-foodies.appspot.com",
-        messagingSenderId: "1013307723579",
-        appId: "1:1013307723579:web:93140a3772beb79064b11e",
-        measurementId: "G-Y019DMKNTS"
-    };
-    // Initialize Firebase
-    var app = firebase.initializeApp(firebaseConfig);
+        <div class="results main-content col-12"></div>
+    
+    </div>
 
-</script>
-<script src="js/app.js"></script>
+
+<!-- scripts -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-database.js"></script>
+
+
+    <script>
+        var firebaseConfig = {
+            apiKey: "AIzaSyDMAzN8O7N_3DJUTBZ3luqk6O8fwgXbzqQ",
+            authDomain: "matchmaker-foodies.firebaseapp.com",
+            databaseURL: "https://matchmaker-foodies.firebaseio.com",
+            projectId: "matchmaker-foodies",
+            storageBucket: "matchmaker-foodies.appspot.com",
+            messagingSenderId: "1013307723579",
+            appId: "1:1013307723579:web:93140a3772beb79064b11e",
+            measurementId: "G-Y019DMKNTS"
+        };
+        // Initialize Firebase
+        var app = firebase.initializeApp(firebaseConfig);
+
+    </script>
+    <script src="js/app.js"></script>
 
 </body>
 </html>
