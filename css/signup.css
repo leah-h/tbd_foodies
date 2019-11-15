@@ -1,0 +1,57 @@
+body {
+  background-color: #f8bb02;
+  font-family: 'Montserrat', sans-serif;
+  margin: 0 auto;
+  padding: 50px;
+  text-align: end;
+}
+
+.newsletter-signup {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding-top: 15rem;
+}
+
+h3 {
+  color: white;
+  font-weight: bold;
+}
+
+a:link {
+  color: white;
+}
+
+a:visited {
+  color: white;
+}
+
+h1 {
+  color: #333333;
+  font-size: 4rem;
+}
+
+p {
+  color: white;
+  font-size: 1.5rem;
+}
+
+
+#email-address,
+#subscribe-button {
+  width: 18rem;
+  margin: 10px;
+  padding: 10px;
+  text-align: center;
+  font-size: 0.8rem;
+}
+
+#subscribe-button {
+  background-color: #333333;
+  color: white;
+}
+
+form {
+  width: 25rem;
+  margin-bottom: 0.25rem;
+}
