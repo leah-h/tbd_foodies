@@ -49,10 +49,10 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementsByClassName("results")[0].innerHTML = recipeHTML;
     }
 
-    document.getElementById("search-form").addEventListener("submit", function (e) {
+    document.getElementById("search-recipe-form").addEventListener("submit", function (e) {
         e.preventDefault();
 
-        const searchString = document.getElementById('search-bar').value.split(" ").join("").toLowerCase();
+        const searchString = document.getElementById("search-bar").value.split(" ").join("").toLowerCase();
 
         axios({
             "method": "GET",
@@ -206,12 +206,14 @@ function compareValues(key, order = 'asc') {
             (order == 'desc') ?
                 (comparison * -1) : comparison
         );
-    };
+    }
+}
 
-    const getRecipeFaves_Btn = document.getElementById('get-recipe-faves-list');
+    var getRecipeFaves_Btn = document.getElementById("get-recipe-faves-list");
+
     getRecipeFaves_Btn.addEventListener('click', function (e) {
-        window.alert('You clicked me!');
-        // e.preventDefault();
+        window.alert("You clicked me!");
+        e.preventDefault();
 
         let rootRef = firebase.database().ref().child('recipes');
         rootRef.on('child_added', snapshot => {
@@ -222,7 +224,8 @@ function compareValues(key, order = 'asc') {
             // })
         });
     });
-}
+
+
 
 
 
