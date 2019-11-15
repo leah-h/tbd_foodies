@@ -1,4 +1,5 @@
 
+
 document.addEventListener("DOMContentLoaded", function () {
 
     function renderRecipes(recipesArray) {
@@ -24,19 +25,16 @@ document.addEventListener("DOMContentLoaded", function () {
                                         <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
-
                                     <div class="modal-body"> 
                                         <div id="card-recipe-image"></div>
                                         <div id="card-recipe-add-info"></div>               
                                         <p id="card-recipe-instructions"></p>
                                         <div id="card-recipe-ingredients"></div>
                                     </div>
-
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" id="save-to-faves">Save to Favorites</button>
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                     </div>
-
                                 </div>
                             </div>
                             <!-- end modal -->    
@@ -50,26 +48,26 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementsByClassName("results")[0].innerHTML = recipeHTML;
     }
 
-    document.getElementById("search-form").addEventListener("submit", function (e) {
+    document.getElementById("search-recipe-form").addEventListener("submit", function (e) {
         e.preventDefault();
 
         const searchString = document.getElementById('search-bar').value.split(" ").join("").toLowerCase();
 
         axios({
-            "method":"GET",
-            "url":"https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/findByIngredients",
-            "headers":{
-                "content-type":"application/octet-stream",
-                "x-rapidapi-host":"spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
-                "x-rapidapi-key":"d64ead36d4msh2d7c35ad33b43ddp1579e9jsnec14e0565611"
-            },"params":{
-                "number":"12",
-                "ranking":"1",
-                "ignorePantry":"false",
-                "ingredients":`${searchString}`
+            "method": "GET",
+            "url": "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/findByIngredients",
+            "headers": {
+                "content-type": "application/octet-stream",
+                "x-rapidapi-host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
+                "x-rapidapi-key": "d64ead36d4msh2d7c35ad33b43ddp1579e9jsnec14e0565611"
+            }, "params": {
+                "number": "12",
+                "ranking": "1",
+                "ignorePantry": "false",
+                "ingredients": `${searchString}`
             }
         })
-            .then((response)=>{
+            .then((response) => {
 
                 recipeData = response.data;
 
@@ -80,7 +78,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 renderRecipes(sortedRecipe);
 
             })
-            .catch((error)=>{
+            .catch((error) => {
                 console.log(error)
             })
     });
@@ -90,15 +88,15 @@ document.addEventListener("DOMContentLoaded", function () {
 function getRecipe(id) {
 
     axios({
-        "method":"GET",
-        "url":`https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/${id}/information`,
-        "headers":{
-            "content-type":"application/octet-stream",
-            "x-rapidapi-host":"spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
-            "x-rapidapi-key":"d64ead36d4msh2d7c35ad33b43ddp1579e9jsnec14e0565611"
+        "method": "GET",
+        "url": `https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/${id}/information`,
+        "headers": {
+            "content-type": "application/octet-stream",
+            "x-rapidapi-host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
+            "x-rapidapi-key": "d64ead36d4msh2d7c35ad33b43ddp1579e9jsnec14e0565611"
         }
     })
-        .then((response)=>{
+        .then((response) => {
             console.log(response);
             recipe = response.data;
 
@@ -110,20 +108,20 @@ function getRecipe(id) {
 
             let recipeLikesCount = response.data.aggregateLikes;
             let recipeLikes = document.createElement('p');
-            recipeLikes.innerHTML = `Likes: ${ recipeLikesCount }`;
+            recipeLikes.innerHTML = `Likes: ${recipeLikesCount}`;
 
             let recipeServingsCount = response.data.servings;
             let recipeServings = document.createElement('p');
             // recipeServings.innerHTML = `Yield: ${ recipeServingsCount } servings`;
 
-            recipeAddInfo.innerHTML = `Yield: ${recipeServingsCount} servings <br> Likes: ${ recipeLikesCount }`;
+            recipeAddInfo.innerHTML = `Yield: ${recipeServingsCount} servings <br> Likes: ${recipeLikesCount}`;
 
-            let result = response.data.extendedIngredients.map(({ originalString }) => originalString);
+            let result = response.data.extendedIngredients.map(({originalString}) => originalString);
             let instructions = response.data.analyzedInstructions[0].steps;
 
-            recipeTitle.innerText = `${ response.data.title }`;
+            recipeTitle.innerText = `${response.data.title}`;
             recipeImage.innerHTML = `<img src="${response.data.image}" alt="recipe image">`;
-            recipeInstructions.innerText = `${ response.data.instructions}`;
+            recipeInstructions.innerText = `${response.data.instructions}`;
 
             let instructionsList = document.createElement('ol');
             instructions.forEach(instruction => {
@@ -147,7 +145,7 @@ function getRecipe(id) {
             recipeIngredients.appendChild(recipeList);
 
             saveToFaves_Btn = document.getElementById('save-to-faves');
-            saveToFaves_Btn.addEventListener('click', function(e) {
+            saveToFaves_Btn.addEventListener('click', function (e) {
                 e.preventDefault();
 
                 var firebaseRef = firebase.database().ref('recipes');
@@ -164,7 +162,7 @@ function getRecipe(id) {
             });
 
         })
-        .catch((error)=>{
+        .catch((error) => {
             console.log(error)
         })
 }
@@ -175,10 +173,10 @@ function saveRecipe(id) {
 
     let recipeListJSON = localStorage.getItem('recipeList');
     let recipeList = JSON.parse(recipeListJSON);
-        if (recipeList == null) {
-            recipeList= [];
-        } 
-    recipeList.push(recipe); 
+    if (recipeList == null) {
+        recipeList = [];
+    }
+    recipeList.push(recipe);
     recipeButton = document.getElementById('saveButton');
     recipeButton.innerHTML = "Saved!";
     recipeButton.className = ("disabled");
@@ -187,11 +185,9 @@ function saveRecipe(id) {
     localStorage.setItem('recipeList', recipeListJSON);
 }
 
-
-
-function compareValues(key, order='asc') {
-    return function(a, b) {
-        if(!a.hasOwnProperty(key) ||
+function compareValues(key, order = 'asc') {
+    return function (a, b) {
+        if (!a.hasOwnProperty(key) ||
             !b.hasOwnProperty(key)) {
             return 0;
         }
@@ -210,36 +206,19 @@ function compareValues(key, order='asc') {
                 (comparison * -1) : comparison
         );
     };
-}
 
-getRecipeFaves_Btn = document.getElementById('get-recipe-faves-list');
-getRecipeFaves_Btn.addEventListener('click', function (e) {
-    window.alert('You clicked me!');
-    e.preventDefault();
+    const getRecipeFaves_Btn = document.getElementById('get-recipe-faves-list');
+    getRecipeFaves_Btn.addEventListener('click', function (e) {
+        window.alert('You clicked me!');
+        // e.preventDefault();
 
-    var rootRef = firebase.database().ref().child('recipes');
-    rootRef.on('child_added', snapshot => {
-            snapshot.forEach(function (childSnapshot) {
-                console.log(childSnapshot);
-                // renderRecipes(childSnapshot);
-            })
+        let rootRef = firebase.database().ref().child('recipes');
+        rootRef.on('child_added', snapshot => {
+            // snapshot.forEach(function (childSnapshot) {
+            console.log(snapshot.val());
+            // renderRecipes(snapshot.val());
+            // renderRecipes(childSnapshot);
+            // })
         });
-
-
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    });
+}

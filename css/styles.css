@@ -26,9 +26,11 @@ body {
     position: sticky;
     padding: 10px;
     top: 0;
-    width: auto;
 }
 
+.modal-content {
+    text-align:left;
+}
 
 
 .results {
