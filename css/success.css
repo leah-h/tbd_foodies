@@ -4,14 +4,14 @@ body {
 }
 
 .jumbotron {
-    background-color: #f8bb02;
+    background-color: #d1f3fa;
 }
 
 .display-4 {
-    color: #333333;
+    color: #F8BB03;
     font-weight: bold;
 }
 
 .lead {
-    color: white;
+    color: #333333;
 }

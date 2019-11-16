@@ -76,9 +76,7 @@ img {
     position:sticky;
     top:0;
 }
-.main-content{
-    z-index: -1;
-}
+
 
 /*Navigation*/
 nav {
@@ -92,9 +90,15 @@ nav {
     font-size: 1.5rem;
 }
 
-#get-recipe-faves-list {
-    margin-left: 15rem;
+.fa-heart {
+    color: #333333;
 }
+
+
+
+
+
+
 
 
 
