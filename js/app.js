@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             <h5 class="card-title">${currentRecipe.title}</h5>
                             <p class="card-likes">Likes: ${currentRecipe.likes}</p>
                                 <!-- Button trigger modal -->
-                        <button class="butn" data-toggle="modal" data-target="#exampleModalLong" id="recipe-info" onclick="getRecipe(${currentRecipe.id})">
+                            <button class="butn" data-toggle="modal" data-target="#exampleModalLong" id="recipe-info" onclick="getRecipe(${currentRecipe.id})">
                         See recipe
                         </button>
                 
@@ -46,13 +46,13 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementsByClassName("results")[0].innerHTML = recipeHTML;
     }
 
-    //document.getElementById("search-recipe-form").addEventListener("submit", function (e) {
     document.getElementById("search-recipe-form").addEventListener("submit", function (e) {
         e.preventDefault();
 
        // const searchString = document.getElementById('search-bar').value.split(" ").join("").toLowerCase();
         const searchString = data.join(",");
         console.log('newdata', searchString);
+
 
         axios({
             "method": "GET",
@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 "x-rapidapi-host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
                 "x-rapidapi-key": "d64ead36d4msh2d7c35ad33b43ddp1579e9jsnec14e0565611"
             }, "params": {
-                "number": "12",
+                "number": "13",
                 "ranking": "1",
                 "ignorePantry": "false",
                 "ingredients": `${searchString}`
@@ -75,8 +75,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 const sortedRecipe = recipeData.sort(compareValues('likes', 'desc'));
 
                 const recipesContainer = document.getElementsByClassName("results")[0];
+                const firstRecipe = recipesContainer.getElementsByClassName("card")[0];
 
                 renderRecipes(sortedRecipe);
+                firstRecipe.classList.add('first');
 
             })
             .catch((error) => {
@@ -87,6 +89,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function getRecipe(id) {
+    console.log('getrecipe');
 
     axios({
         "method": "GET",
@@ -145,27 +148,27 @@ function getRecipe(id) {
             recipeIngredients.innerText = 'Ingredients: ';
             recipeIngredients.appendChild(recipeList);
 
-            saveToFaves_Btn = document.getElementById('save-to-faves');
-            saveToFaves_Btn.addEventListener('click', function (e) {
-                e.preventDefault();
+            // saveToFaves_Btn = document.getElementById('save-to-faves');
+            // saveToFaves_Btn.addEventListener('click', function (e) {
+            //     e.preventDefault();
 
-                var firebaseRef = firebase.database().ref('recipes');
-                data = {
-                    title: `${response.data.title}`,
-                    image: `<img src="${response.data.image}" alt="recipe image">`,
-                    likes: recipeLikesCount,
-                    yield: recipeServingsCount,
-                    instructions: instructions,
-                    ingredients: result
-                };
+            //     var firebaseRef = firebase.database().ref('recipes');
+            //     data = {
+            //         title: `${response.data.title}`,
+            //         image: `<img src="${response.data.image}" alt="recipe image">`,
+            //         likes: recipeLikesCount,
+            //         yield: recipeServingsCount,
+            //         instructions: instructions,
+            //         ingredients: result
+            //     };
 
-                firebaseRef.push().set(data);
-            });
+            //     firebaseRef.push().set(data);
+            // });
 
         })
-        .catch((error) => {
-            console.log(error)
-        })
+        // .catch((error) => {
+        //     console.log(error)
+        // })
 }
 
 
@@ -209,25 +212,25 @@ function compareValues(key, order = 'asc') {
     }
 }
 
-var getRecipeFaves_Btn = document.getElementById("get-recipe-faves-list");
+// var getRecipeFaves_Btn = document.getElementById("get-recipe-faves-list");
 
-getRecipeFaves_Btn.addEventListener('click', function (e) {
-    window.alert("You clicked me!");
-    e.preventDefault();
+// getRecipeFaves_Btn.addEventListener('click', function (e) {
+//     window.alert("You clicked me!");
+//     e.preventDefault();
 
-    let rootRef = firebase.database().ref().child('recipes');
-    let promiseFaves = rootRef.on('child_added', snapshot => {
-        return snapshot.val();
-    });
+//     let rootRef = firebase.database().ref().child('recipes');
+//     let promiseFaves = rootRef.on('child_added', snapshot => {
+//         return snapshot.val();
+//     });
 
-    promiseFaves.then(() => {
-        window.location.href = "favorites.html";
+//     promiseFaves.then(() => {
+//         window.location.href = "favorites.html";
 
-    });
+//     });
 
-    renderRecipes(promiseFaves);
+//     renderRecipes(promiseFaves);
 
-});
+// });
 
 
 
