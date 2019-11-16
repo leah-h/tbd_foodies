@@ -3,20 +3,21 @@ body {
     background: #d1f3fa;
     margin: 0 auto;
     text-align: center;
+    font-family: 'Montserrat', sans-serif;
 }
 
 .header {
     padding: 40px;
     text-align: center;
-    color: black;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif ;
+    color: #555;
+    font-family: 'Montserrat', sans-serif;
     font: caption;
     font-size: large;
 }
 
 .header h1 {
     font-size: 70px;
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-family: 'Montserrat', sans-serif;
 
 }
 
@@ -42,9 +43,13 @@ body {
 }
 
 .card:first-child {
-    width:18rem;
+    width:25rem;
     margin-left:35%;
     margin-right: 35%;
+}
+
+.card-body:first-child {
+    text-align:right;
 }
 .card {
     margin: 1rem;
@@ -64,6 +69,10 @@ body {
     padding: 0.5rem;
     
 }
+
+#card-recipe-image {
+    text-align: center;
+}
 .card:hover {
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 }
@@ -79,6 +88,9 @@ img {
     position:sticky;
     top:0;
 }
+/* .main-content{
+    z-index: -1;
+} */
 
 /*Navigation*/
 nav {
@@ -96,6 +108,12 @@ nav {
     color: #333333;
 }
 
+.ingredients-list {
+    border:.5px solid #f8bb02;
+    color: #555;
+    background: #f8f9fa;
+    margin:5px;
+}
 
 
 
