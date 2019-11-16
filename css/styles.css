@@ -1,7 +1,7 @@
 
 body { 
+
     background: #d1f3fa;
-    max-width: 960px;
     margin: 0 auto;
     text-align: center;
 }
@@ -29,8 +29,6 @@ body {
     width: auto;
 }
 
-
-
 .results {
     display: flex;
     flex-flow: row wrap;
@@ -40,6 +38,11 @@ body {
     position: sticky;
 }
 
+.card:first-child {
+    width:18rem;
+    margin-left:35%;
+    margin-right: 35%;
+}
 .card {
     margin: 1rem;
     width: 18rem;
