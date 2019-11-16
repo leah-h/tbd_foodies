@@ -79,9 +79,6 @@ img {
     position:sticky;
     top:0;
 }
-.main-content{
-    z-index: -1;
-}
 
 /*Navigation*/
 nav {
@@ -98,6 +95,7 @@ nav {
 #get-recipe-faves-list {
     margin-left: 15rem;
 }
+
 
 
 
