@@ -49,7 +49,12 @@ document.addEventListener("DOMContentLoaded", function() {
   document
     .getElementById("search-recipe-form")
     .addEventListener("submit", async function(e) {
+
       e.preventDefault();
+
+      let form = document.getElementById("search-recipe-form");
+      form.reset();
+
       const searchString = data.join(",");
       const searchResults = await axios({
         method: "GET",
