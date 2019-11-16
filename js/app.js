@@ -53,7 +53,8 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("search-form").addEventListener("submit", function (e) {
         e.preventDefault();
 
-        const searchString = document.getElementById('search-bar').value.split(" ").join("").toLowerCase();
+        const searchString = document.getElementById('search-bar').value.split(" ").join(",").toLowerCase();
+        console.log(searchString);  
 
         axios({
             "method":"GET",
@@ -66,10 +67,15 @@ document.addEventListener("DOMContentLoaded", function () {
                 "number":"12",
                 "ranking":"1",
                 "ignorePantry":"false",
-                "ingredients":`${searchString}`
+                "ingredients":`${searchString}`,
+                "instructionsRequired":"true",
+
             }
+
+        
         })
             .then((response)=>{
+                console.log(response)
 
                 recipeData = response.data;
 
@@ -80,7 +86,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 renderRecipes(sortedRecipe);
 
             })
-            .catch((error)=>{
+            .catch((error)=>{ 
+                // insert conditional logic here? or a continue statement?
                 console.log(error)
             })
     });
@@ -88,7 +95,6 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function getRecipe(id) {
-
     axios({
         "method":"GET",
         "url":`https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/${id}/information`,
