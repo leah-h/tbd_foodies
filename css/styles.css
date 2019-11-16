@@ -92,9 +92,14 @@ nav {
     font-size: 1.5rem;
 }
 
-#get-recipe-faves-list {
-    margin-left: 15rem;
+.fa-heart {
+    color: #333333;
 }
+
+
+
+
+
 
 
 
