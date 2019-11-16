@@ -1,9 +1,8 @@
 
 body { 
-    background:   #d1f3fa ;
-    max-width: 960px;
-    margin: auto;
-
+    background: #d1f3fa;
+    margin: 0 auto;
+    text-align: center;
 }
 
 .header {
@@ -26,9 +25,11 @@ body {
     position: sticky;
     padding: 10px;
     top: 0;
-    width: auto;
 }
 
+.modal-content {
+    text-align:left;
+}
 
 
 .results {
@@ -40,18 +41,22 @@ body {
     position: sticky;
 }
 
+.card:first-child {
+    width:18rem;
+    margin-left:35%;
+    margin-right: 35%;
+}
 .card {
     margin: 1rem;
     width: 18rem;
     background-color: #F8BB03;
     border-color: #6BC2C3;
     border-style: solid;
-    border-style: round;
+    border-radius: 5px;
     font-weight: normal;
     font-family: Georgia, 'Times New Roman', Times, serif;
-    font-display: center;
+    text-align: center;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    
 }
 
 .card-body {
@@ -63,21 +68,37 @@ body {
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 }
 
-
 img {
     width: 18rem;
-
 }
-
 
 .main-header{
     z-index: 1;
-    background:   #d1f3fa ;
-}
-.main-content{
-    z-index: -1;
+    background: #d1f3fa;
+    position:-webkit-sticky;
+    position:sticky;
+    top:0;
 }
 
-.main-header{position:-webkit-sticky; position:sticky; top:0;}
+/*Navigation*/
+nav {
+    font-family: 'Montserrat', sans-serif;
+    text-align: center;
+}
+
+#nav-brand {
+    color: #f8bb02;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+#get-recipe-faves-list {
+    margin-left: 15rem;
+}
+
+
+
+
+
 
 

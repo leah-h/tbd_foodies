@@ -46,9 +46,10 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementsByClassName("results")[0].innerHTML = recipeHTML;
     }
     // in order to use await, you have to use an ASYNC FUNCTION
-    document.getElementById("search-form").addEventListener("submit", async function (e) {
+    document.getElementById("search-recipe-form").addEventListener("submit", async function (e) {
         e.preventDefault();
-        const searchString = document.getElementById('search-bar').value.split(" ").join(",").toLowerCase();
+    //  const searchString = document.getElementById('search-bar').value.split(" ").join(",").toLowerCase();
+        const searchString = data.join(",");
         const searchResults = await axios({
             "method": "GET",
             "url": "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/findByIngredients",
@@ -191,11 +192,11 @@ function compareValues(key, order = 'asc') {
             (order == 'desc') ?
                 (comparison * -1) : comparison
         );
-    };
+    }
 }
 getRecipeFaves_Btn = document.getElementById('get-recipe-faves-list');
 getRecipeFaves_Btn.addEventListener('click', function (e) {
-    window.alert('You clicked me!');
+    window.alert("You clicked me!");
     e.preventDefault();
     var rootRef = firebase.database().ref().child('recipes');
     rootRef.on('child_added', snapshot => {
