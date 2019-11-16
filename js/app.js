@@ -206,20 +206,49 @@ function compareValues(key, order = 'asc') {
             (order == 'desc') ?
                 (comparison * -1) : comparison
         );
-    };
-
-    const getRecipeFaves_Btn = document.getElementById('get-recipe-faves-list');
-    getRecipeFaves_Btn.addEventListener('click', function (e) {
-        window.alert('You clicked me!');
-        // e.preventDefault();
-
-        let rootRef = firebase.database().ref().child('recipes');
-        rootRef.on('child_added', snapshot => {
-            // snapshot.forEach(function (childSnapshot) {
-            console.log(snapshot.val());
-            // renderRecipes(snapshot.val());
-            // renderRecipes(childSnapshot);
-            // })
-        });
-    });
+    }
 }
+
+var getRecipeFaves_Btn = document.getElementById("get-recipe-faves-list");
+
+getRecipeFaves_Btn.addEventListener('click', function (e) {
+    window.alert("You clicked me!");
+    e.preventDefault();
+
+    let rootRef = firebase.database().ref().child('recipes');
+    let promiseFaves = rootRef.on('child_added', snapshot => {
+        return snapshot.val();
+    });
+
+    promiseFaves.then(() => {
+        window.location.href = "favorites.html";
+
+    });
+
+    renderRecipes(promiseFaves);
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
