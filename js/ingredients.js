@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 outputIngredients.append(outputHtml);
 
                 //Reset text area input
-                textAreaElement.value = "";
+                //textAreaElement.value = "";
 
                 console.log(data);
             } else{

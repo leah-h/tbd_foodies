@@ -1,5 +1,3 @@
-
-
 document.addEventListener("DOMContentLoaded", function () {
 
     function renderRecipes(recipesArray) {
@@ -48,10 +46,13 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementsByClassName("results")[0].innerHTML = recipeHTML;
     }
 
+    //document.getElementById("search-recipe-form").addEventListener("submit", function (e) {
     document.getElementById("search-recipe-form").addEventListener("submit", function (e) {
         e.preventDefault();
 
-        const searchString = document.getElementById('search-bar').value.split(" ").join("").toLowerCase();
+       // const searchString = document.getElementById('search-bar').value.split(" ").join("").toLowerCase();
+        const searchString = data.join(",");
+        console.log('newdata', searchString);
 
         axios({
             "method": "GET",
