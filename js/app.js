@@ -1,4 +1,3 @@
-
 document.addEventListener("DOMContentLoaded", function () {
 
     function renderRecipes(recipesArray) {
@@ -24,19 +23,16 @@ document.addEventListener("DOMContentLoaded", function () {
                                         <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
-
                                     <div class="modal-body"> 
                                         <div id="card-recipe-image"></div>
                                         <div id="card-recipe-add-info"></div>               
                                         <p id="card-recipe-instructions"></p>
                                         <div id="card-recipe-ingredients"></div>
                                     </div>
-
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" id="save-to-faves">Save to Favorites</button>
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                     </div>
-
                                 </div>
                             </div>
                             <!-- end modal -->    
@@ -50,10 +46,13 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementsByClassName("results")[0].innerHTML = recipeHTML;
     }
 
+    //document.getElementById("search-recipe-form").addEventListener("submit", function (e) {
     document.getElementById("search-recipe-form").addEventListener("submit", function (e) {
         e.preventDefault();
 
-        const searchString = document.getElementById("search-bar").value.split(" ").join("").toLowerCase();
+       // const searchString = document.getElementById('search-bar').value.split(" ").join("").toLowerCase();
+        const searchString = data.join(",");
+        console.log('newdata', searchString);
 
         axios({
             "method": "GET",
