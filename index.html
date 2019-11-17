@@ -18,11 +18,9 @@
         var renderIngredients = function() {
             var saveString = document.getElementById("search-bar").value.split(" ").join("-").toLowerCase();
             var outputIngredients = document.getElementById("output");
-            console.log('bang');
             
             //Get the text area input
             var gotIngredients = saveString;
-            console.log(gotIngredients, "ingred");
 
             if(gotIngredients) {
                 //Store the data
@@ -32,7 +30,7 @@
                 outputHtml.innerHTML += gotIngredients + "  ";
                 outputIngredients.append(outputHtml);
 
-                console.log("data", data);
+               // console.log("data", data);
             } else {
                 alert("enter what you want to cook with!");
             }

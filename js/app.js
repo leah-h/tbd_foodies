@@ -111,11 +111,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // finds results based on id passed in
 function getRecipe(id) {
-    console.log(id, 'id'); //correct id
-    const response = currentRecipeResults.find(result => result.id = id);
-    recipe = response.id;
+  //  console.log(id, 'id'); //correct id
     //const response = currentRecipeResults.find(result => result.id = id);
-    console.log('response', response, recipe);  //wrong response...pulling first result
+    const response = currentRecipeResults.find(result => result.id === id);
+    console.log(response, "response", id);
+    recipe = response.data;
     const recipeTitle = document.getElementById('exampleModalLongTitle');
     const recipeImage = document.getElementById('card-recipe-image');
     const recipeAddInfo = document.getElementById('card-recipe-add-info');
