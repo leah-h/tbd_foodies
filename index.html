@@ -28,12 +28,9 @@
                 //Store the data
                 data.push(gotIngredients);
 
-                var outputHtml = document.createElement("p");
-                outputHtml.innerHTML = gotIngredients;
+                var outputHtml = document.getElementById("output-item");
+                outputHtml.innerHTML += gotIngredients + "  ";
                 outputIngredients.append(outputHtml);
-
-                //Reset text area input
-                //saveString = "";
 
                 console.log("data", data);
             } else {
@@ -68,22 +65,21 @@
                         <h2>Matchmaker Cooking</h2>
                         <p><i>Let's see what <b>you</b> can make!</i></p>
                 </div>
-                <div class="container-fluid row">
-                    <div class="col-md-4">
-                        <form id="search-recipe-form" >
-                            <div class="input-group input-group-lg">
-                                <input class="form-control search-bar" placeholder="What's in your fridge?" type="text" id="search-bar">
-                                <button class="butn" type="submit" onclick="renderIngredients()" id="search-button">add ingredients</button>
-                            
-                            </div>
-                        </form>
-                    </div>      
 
-                    <div class="col-md-4 ingredients-list" id="output"><h3>my ingredients list</h3>
-                    </div>
-                    
-                </div>
         </header>
+        <div class="container-fluid row col-sm-12 col-md-12">
+                <form id="search-recipe-form" class="form-width" >
+                    <div class="input-group input-group-lg">
+                        <input class="col-sm-12 col-md-8 add-form-control search-bar" placeholder="What's in your fridge?" type="text" id="search-bar">
+                        <button class=" col-sm-12 col-md-4 gotIngredients" type="submit" onclick="renderIngredients()" id="search-button"><i class="fas fa-utensil-spoon"></i>  add ingredients</button>
+                    </div>
+                </form>
+
+            <div class="form-width ingredients-list" id="output"><h3>my ingredients list</h3>
+            <p id="output-item"></p>
+            </div>
+            
+        </div>
     </div>
 
     <div class="results main-content col-12"></div>
@@ -113,7 +109,6 @@
     <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-app.js"></script>
 
 <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-app.js"></script>
-<!-- <script src="https://www.gstatic.com/firebase/7.4.0/firebase-auth.js"></script> -->
 <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-database.js"></script>
 
     <script>

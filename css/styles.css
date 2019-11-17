@@ -36,20 +36,38 @@ body {
 .results {
     display: flex;
     flex-flow: row wrap;
+    justify-content: center;
 }
+
 
 .input-group {
     position: sticky;
 }
-
-.card:first-child {
+.add-form-control {
+    padding: .5rem 1rem;
+    font-size: 1.25rem;
+    line-height: 1.5;
+    border-radius: .3rem;
+    position: relative;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    width: 1%;
+    margin-bottom: 0;
+    margin: 10px;
+    display: block;
+    width: 100%;
+    height: calc(1.5em + .75rem + 2px);
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+/* .card:first-child {
     width:25rem;
     margin-left:35%;
     margin-right: 35%;
-}
-
-.card-body:first-child {
-    text-align:right;
+} */
+h3 {
+    padding-top:.45em;
 }
 .card {
     margin: 1rem;
@@ -88,9 +106,6 @@ img {
     position:sticky;
     top:0;
 }
-/* .main-content{
-    z-index: -1;
-} */
 
 /*Navigation*/
 nav {
@@ -106,17 +121,60 @@ nav {
 
 .fa-heart {
     color: #333333;
+    padding-right:5px;
 }
 
+.container-fluid {
+    justify-content: center;
+}
 .ingredients-list {
     border:.5px solid #f8bb02;
     color: #555;
     background: #f8f9fa;
     margin:5px;
+    border-radius:.3em;
 }
 
+.form-width {
+    width:50%;
+}
 
+.form-control {
+    margin:10px;
+}
 
+.gotIngredients {
+    position: relative;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    width: 1%;
+    margin-bottom: 5px;
+    margin-top:10px;
+    border-radius: .3em;
+    height: fit-content;
+    padding: .5rem 1rem;
+    background:#f8bb02;
+}
+
+.butn {
+    background:#555;
+    border-radius:.3em;
+    color: #fff;
+    border-color:#555;
+}
+
+.modal-header {
+    color: #212529;
+    background-color: #f8bb02;
+    border-color: #555;
+    border-bottom: 0px solid #dee2e6;
+}
+
+@media screen and (max-width: 767px) {
+.form-width {
+    width:100%;
+}
+}
 
 
 

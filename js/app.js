@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                         <div id="card-recipe-ingredients"></div>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" id="save-to-faves">Save to Favorites</button>
+                                        <!-- <button type="button" class="btn btn-secondary" id="save-to-faves" onclick="saveRecipe(${currentRecipe.id})">Save to Favorites</button>-->
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                     </div>
                                 </div>
@@ -48,6 +48,10 @@ document.addEventListener("DOMContentLoaded", function () {
     // in order to use await, you have to use an ASYNC FUNCTION
     document.getElementById("search-recipe-form").addEventListener("submit", async function (e) {
         e.preventDefault();
+
+        let form = document.getElementById("search-recipe-form");
+        form.reset();
+
         const searchString = data.join(",");
         const searchResults = await axios({
             "method": "GET",
@@ -72,7 +76,7 @@ document.addEventListener("DOMContentLoaded", function () {
             idList.push(searchResult.id)
         });
 
-        // turns an array into a list of values seperated by commas
+        // turns an array into a list of values separated by commas
         const recipeParams = idList.join();
 
         const listOfRecipes = await axios({
@@ -107,7 +111,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // finds results based on id passed in
 function getRecipe(id) {
+    console.log(id, 'id'); //correct id
     const response = currentRecipeResults.find(result => result.id = id);
+    recipe = response.id;
+    //const response = currentRecipeResults.find(result => result.id = id);
+    console.log('response', response, recipe);  //wrong response...pulling first result
     const recipeTitle = document.getElementById('exampleModalLongTitle');
     const recipeImage = document.getElementById('card-recipe-image');
     const recipeAddInfo = document.getElementById('card-recipe-add-info');
@@ -117,9 +125,6 @@ function getRecipe(id) {
     let recipeLikes = document.createElement('p');
     recipeLikes.innerHTML = `Likes: ${recipeLikesCount}`;
     let recipeServingsCount = response.servings;
-    let recipeServings = document.createElement('p');
-    
-    // recipeServings.innerHTML = `Yield: ${ recipeServingsCount } servings`;
     recipeAddInfo.innerHTML = `Yield: ${recipeServingsCount} servings <br> Likes: ${recipeLikesCount}`;
     let result = response.extendedIngredients.map(({ originalString }) => originalString);
     let instructions = response.analyzedInstructions[0].steps;
@@ -144,20 +149,20 @@ function getRecipe(id) {
     recipeIngredients.appendChild(recipeList);
 }
 
-function saveRecipe(id) {
-    console.log(recipe, id, "id");
-    let recipeListJSON = localStorage.getItem('recipeList');
-    let recipeList = JSON.parse(recipeListJSON);
-    if (recipeList == null) {
-        recipeList = [];
-    }
-    recipeList.push(recipe);
-    recipeButton = document.getElementById('saveButton');
-    recipeButton.innerHTML = "Saved!";
-    recipeButton.className = ("disabled");
-    recipeListJSON = JSON.stringify(recipeList);
-    localStorage.setItem('recipeList', recipeListJSON);
-}
+// function saveRecipe(id) {
+//     console.log(id, "id");
+//     let recipeListJSON = localStorage.getItem('recipeList');
+//     let recipeList = JSON.parse(recipeListJSON);
+//     if (recipeList == null) {
+//         recipeList = [];
+//     }
+//     recipeList.push(recipe);
+//     recipeButton = document.getElementById('saveButton');
+//     recipeButton.innerHTML = "Saved!";
+//     recipeButton.className = ("disabled");
+//     recipeListJSON = JSON.stringify(recipeList);
+//     localStorage.setItem('recipeList', recipeListJSON);
+// }
 function compareValues(key, order = 'asc') {
     return function (a, b) {
         if (!a.hasOwnProperty(key) ||

@@ -42,11 +42,14 @@ p {
   padding: 10px;
   text-align: center;
   font-size: 0.8rem;
+  border-radius:.3em;
+  border-width:.5px;
 }
 
 #subscribe-button {
   background-color: #333333;
   color: white;
+  border-radius:.3em;
 }
 
 form {
