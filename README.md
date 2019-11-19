@@ -9,7 +9,7 @@ In the search form, insert the name of the ingredients you have on hand one at a
 Visitors who want to sign up for the newsletter will enter contact information on the signup.html page, which is then stored in Firebase. 
 
 ## Tools
-This project used one API called Nutrition, Recipe, and Food API from Spoonacular and the Firebase library. We used Bootstrapas our base CSS framework.
+This project used one API called Nutrition, Recipe, and Food API from Spoonacular and the Firebase library. We used Bootstrap as our base CSS framework.
 
 ## Live demo
 https://sharp-jang-bc8ca9.netlify.com/
