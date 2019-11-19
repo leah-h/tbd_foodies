@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                         <div id="card-recipe-ingredients"></div>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" id="save-to-faves">Save to Favorites</button>
+                                        <!-- <button type="button" class="btn btn-secondary" id="save-to-faves" onclick="saveRecipe(${currentRecipe.id})">Save to Favorites</button>-->
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                     </div>
                                 </div>
@@ -48,7 +48,10 @@ document.addEventListener("DOMContentLoaded", function () {
     // in order to use await, you have to use an ASYNC FUNCTION
     document.getElementById("search-recipe-form").addEventListener("submit", async function (e) {
         e.preventDefault();
-    //  const searchString = document.getElementById('search-bar').value.split(" ").join(",").toLowerCase();
+
+        let form = document.getElementById("search-recipe-form");
+        form.reset();
+
         const searchString = data.join(",");
         const searchResults = await axios({
             "method": "GET",
@@ -73,7 +76,7 @@ document.addEventListener("DOMContentLoaded", function () {
             idList.push(searchResult.id)
         });
 
-        // turns an array into a list of values seperated by commas
+        // turns an array into a list of values separated by commas
         const recipeParams = idList.join();
 
         const listOfRecipes = await axios({
@@ -102,14 +105,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // GLOBAL VARIABLE to access recipe data based on id
         currentRecipeResults = sortedRecipe;
-        // const recipesContainer = document.getElementsByClassName("results")[0];
         renderRecipes(sortedRecipe)
     })
 });
 
         // finds results based on id passed in
 function getRecipe(id) {
-    const response = currentRecipeResults.find(result => result.id = id);
+  //  console.log(id, 'id'); //correct id
+    //const response = currentRecipeResults.find(result => result.id = id);
+    const response = currentRecipeResults.find(result => result.id === id);
+    console.log(response, "response", id);
+    recipe = response.data;
     const recipeTitle = document.getElementById('exampleModalLongTitle');
     const recipeImage = document.getElementById('card-recipe-image');
     const recipeAddInfo = document.getElementById('card-recipe-add-info');
@@ -119,9 +125,6 @@ function getRecipe(id) {
     let recipeLikes = document.createElement('p');
     recipeLikes.innerHTML = `Likes: ${recipeLikesCount}`;
     let recipeServingsCount = response.servings;
-    let recipeServings = document.createElement('p');
-    
-    // recipeServings.innerHTML = `Yield: ${ recipeServingsCount } servings`;
     recipeAddInfo.innerHTML = `Yield: ${recipeServingsCount} servings <br> Likes: ${recipeLikesCount}`;
     let result = response.extendedIngredients.map(({ originalString }) => originalString);
     let instructions = response.analyzedInstructions[0].steps;
@@ -144,36 +147,22 @@ function getRecipe(id) {
     });
     recipeIngredients.innerText = 'Ingredients: ';
     recipeIngredients.appendChild(recipeList);
-    saveToFaves_Btn = document.getElementById('save-to-faves');
-    saveToFaves_Btn.addEventListener('click', function (e) {
-        e.preventDefault();
-        var firebaseRef = firebase.database().ref('recipes');
-        data = {
-            title: `${response.title}`,
-            image: `<img src="${response.image}" alt="recipe image">`,
-            likes: recipeLikesCount,
-            yield: recipeServingsCount,
-            instructions: instructions,
-            ingredients: result
-        };
-        firebaseRef.push().set(data);
-    });
 }
 
-function saveRecipe(id) {
-    console.log(recipe, id, "id");
-    let recipeListJSON = localStorage.getItem('recipeList');
-    let recipeList = JSON.parse(recipeListJSON);
-    if (recipeList == null) {
-        recipeList = [];
-    }
-    recipeList.push(recipe);
-    recipeButton = document.getElementById('saveButton');
-    recipeButton.innerHTML = "Saved!";
-    recipeButton.className = ("disabled");
-    recipeListJSON = JSON.stringify(recipeList);
-    localStorage.setItem('recipeList', recipeListJSON);
-}
+// function saveRecipe(id) {
+//     console.log(id, "id");
+//     let recipeListJSON = localStorage.getItem('recipeList');
+//     let recipeList = JSON.parse(recipeListJSON);
+//     if (recipeList == null) {
+//         recipeList = [];
+//     }
+//     recipeList.push(recipe);
+//     recipeButton = document.getElementById('saveButton');
+//     recipeButton.innerHTML = "Saved!";
+//     recipeButton.className = ("disabled");
+//     recipeListJSON = JSON.stringify(recipeList);
+//     localStorage.setItem('recipeList', recipeListJSON);
+// }
 function compareValues(key, order = 'asc') {
     return function (a, b) {
         if (!a.hasOwnProperty(key) ||
@@ -194,15 +183,3 @@ function compareValues(key, order = 'asc') {
         );
     }
 }
-getRecipeFaves_Btn = document.getElementById('get-recipe-faves-list');
-getRecipeFaves_Btn.addEventListener('click', function (e) {
-    window.alert("You clicked me!");
-    e.preventDefault();
-    var rootRef = firebase.database().ref().child('recipes');
-    rootRef.on('child_added', snapshot => {
-        snapshot.forEach(function (childSnapshot) {
-            console.log(childSnapshot);
-            // renderRecipes(childSnapshot);
-        })
-    });
-});
